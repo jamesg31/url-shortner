@@ -7,6 +7,11 @@
   },
   "dependencies": {
     "express": "^4.16.4",
+    "express-mysql-session": "^2.1.7",
+    "express-session": "^1.17.2",
+    "google-auth-library": "^7.10.0",
+    "md5": "^2.3.0",
+    "microtime": "^3.0.0",
     "mysql2": "^2.3.0"
   }
 }
