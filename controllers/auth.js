@@ -21,8 +21,6 @@ exports.postGoogle = (req, res, next) => {
                 [sub, name, email, name, email], (err, results) => {
                     conn.release();
                     req.session.userId = results.insertId;
-                    console.log(req.session.id);
-                    console.log(results);
                     res.status(200).send();
                 })
         })

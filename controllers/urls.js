@@ -1,7 +1,7 @@
 const db = require("../database");
 
-// return if url is available
-exports.getURL = (req, res, next) => {
+// return specific url
+exports.getParamURL = (req, res, next) => {
     db.getConnection((err, conn) => {
         if (err) throw err;
         conn.query('SELECT * FROM urls WHERE url=?', [req.params.url], (err, results) => {
@@ -11,9 +11,24 @@ exports.getURL = (req, res, next) => {
     })
 };
 
+// get all urls from user
+exports.getURL = (req, res, next) => {
+    if (req.session.userId != null) {
+        db.getConnection((err, conn) => {
+            if (err) throw err;
+            conn.query('SELECT * FROM urls WHERE user_id = ?', [req.session.userId], (err, results) => {
+                conn.release();
+                console.log(results);
+                res.send(results);
+            })
+        });
+    } else {
+        res.send([]);
+    }
+}
+
 /* create url
 {
-    token:
     url:
     destination:
 }
