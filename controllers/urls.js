@@ -49,6 +49,28 @@ exports.postURL = (req, res, next) => {
     }
 };
 
+exports.deleteParamURL = (req, res, next) => {
+    db.getConnection((err, conn) => {
+        if (err) throw err;
+        conn.query('SELECT * FROM urls WHERE url=?', [req.params.url], (err, results) => {
+            if (results.length > 0) {
+                if (req.session.userId == results[0].user_id) {
+                    conn.query('DELETE FROM urls WHERE url=?', [req.params.url], (err, results) => {
+                        conn.release();
+                        res.status(200).send();
+                    });
+                } else {
+                    conn.release();
+                    res.status(401).send();
+                }
+            } else {
+                conn.release();
+                res.status(404).send();
+            }
+        });
+    });
+}
+
 // redirect to url
 exports.get = (req, res, next) => {
     let requestUrl = req.url.substring(1);
