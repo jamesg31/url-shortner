@@ -31,12 +31,12 @@ var urlRouter = require('./routes/urls');
 var authRouter = require('./routes/auth');
 
 app.use(express.json())
-app.use(express.static(path.resolve(__dirname, 'public')));
+//app.use(express.static(path.resolve(__dirname, 'public')));
 
 // serve react app
-app.get('/', (req, res, next) => {
-    res.sendFile(path.resolve(__dirname, 'public', 'index.html'));
-});
+//app.get('/', (req, res, next) => {
+//    res.sendFile(path.resolve(__dirname, 'public', 'index.html'));
+//});
 
 // url and auth api
 app.use('/api/urls/', urlRouter);
